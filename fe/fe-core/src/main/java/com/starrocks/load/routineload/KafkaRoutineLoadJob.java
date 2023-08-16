@@ -580,6 +580,7 @@ public class KafkaRoutineLoadJob extends RoutineLoadJob {
         super.write(out);
         Text.writeString(out, brokerList);
         Text.writeString(out, topic);
+        Text.writeString(out, confluentSchemaRegistryUrl);
 
         out.writeInt(customKafkaPartitions.size());
         for (Integer partitionId : customKafkaPartitions) {
@@ -597,6 +598,7 @@ public class KafkaRoutineLoadJob extends RoutineLoadJob {
         super.readFields(in);
         brokerList = Text.readString(in);
         topic = Text.readString(in);
+        confluentSchemaRegistryUrl = Text.readString(in);
         int size = in.readInt();
         for (int i = 0; i < size; i++) {
             customKafkaPartitions.add(in.readInt());
